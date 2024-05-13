@@ -24,9 +24,8 @@ public class Exercise {
     @Column(name = "seq", unique = true)
     private int sequence;
 
-    @JoinColumn(name = "user_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @OneToMany(mappedBy = "exercise")
+    private List<Routine> routines = new ArrayList<>();
     @OneToMany(mappedBy = "exercise")
     private List<Set> sets = new ArrayList<>();
 }

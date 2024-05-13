@@ -23,5 +23,5 @@ public class User {
     private String condition;
 
     @OneToMany(mappedBy = "user")
-    private List<Exercise> exercise = new ArrayList<>();
+    private List<Routine> routines = new ArrayList<>();
 }
