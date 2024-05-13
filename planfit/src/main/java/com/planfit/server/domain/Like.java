@@ -11,7 +11,8 @@ import lombok.*;
 @Entity
 public class Like {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "user_id")
