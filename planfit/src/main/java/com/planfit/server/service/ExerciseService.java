@@ -1,7 +1,7 @@
 package com.planfit.server.service;
 
 import com.planfit.server.domain.User;
-import com.planfit.server.dto.request.ExerciseFindAllDto;
+import com.planfit.server.dto.request.GetAllExercisesDto;
 import com.planfit.server.repository.RoutineRepository;
 import com.planfit.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +19,9 @@ public class ExerciseService {
 
     @Transactional(readOnly = true)
     //운동 리스트 조회
-    public List<ExerciseFindAllDto> findExercises(Long userId) {
+    public List<GetAllExercisesDto> findExercises(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
 
-        return ExerciseFindAllDto.listOf(routineRepository.findAllByUserOrderBySequenceAsc(user));
+        return GetAllExercisesDto.listOf(routineRepository.findAllByUserOrderBySequenceAsc(user));
     }
 }

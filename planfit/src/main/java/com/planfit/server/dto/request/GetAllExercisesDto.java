@@ -1,11 +1,10 @@
 package com.planfit.server.dto.request;
 
-import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
 
 import java.util.List;
 
-public record ExerciseFindAllDto(
+public record GetAllExercisesDto(
 
         Long id,
         String name,
@@ -14,10 +13,10 @@ public record ExerciseFindAllDto(
         int count,
         int index
 ) {
-    public static List<ExerciseFindAllDto> listOf(List<Routine> routines) {
+    public static List<GetAllExercisesDto> listOf(List<Routine> routines) {
         return routines
                 .stream()
-                .map(routine -> new ExerciseFindAllDto(
+                .map(routine -> new GetAllExercisesDto(
                         routine.getId(),
                         routine.getExercise().getName(),
                         routine.getExercise().getSets().size(),
