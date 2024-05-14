@@ -5,6 +5,7 @@ import com.planfit.server.common.BaseResponse;
 import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.common.message.SuccessMessage;
 import com.planfit.server.dto.request.ExerciseFindAllDto;
+import com.planfit.server.exception.BadRequestException;
 import com.planfit.server.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ExerciseController {
     @GetMapping("/exercises")
     public ResponseEntity<BaseResponse<?>> exercisesList(@RequestHeader(required = false) Long userId) {
         if (userId == null || userId != 1) {
-            return ApiResponseUtil.failure(ErrorMessage.EXERCISE_BAD_REQUEST);
+            throw new BadRequestException(ErrorMessage.EXERCISE_BAD_REQUEST);
         }
 
         List<ExerciseFindAllDto> exercises = exerciseService.findExercises(userId);
