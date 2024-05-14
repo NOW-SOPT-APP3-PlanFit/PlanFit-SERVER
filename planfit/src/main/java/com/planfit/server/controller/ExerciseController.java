@@ -9,10 +9,7 @@ import com.planfit.server.common.exception.BadRequestException;
 import com.planfit.server.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,10 +24,7 @@ public class ExerciseController {
 
     //운동 리스트 조회
     @GetMapping("/exercises")
-    public ResponseEntity<BaseResponse<?>> exercisesList(@RequestHeader(required = true) Long userId) {
-        if (userId == null || userId != 1) {
-            throw new BadRequestException(ErrorMessage.EXERCISE_BAD_REQUEST);
-        }
+    public ResponseEntity<BaseResponse<?>> exercisesList(@RequestHeader Long userId) {
 
         List<GetAllExercisesDto> exercises = exerciseService.findExercises(userId);
         Map<String, Object> responseData = new HashMap<>();
