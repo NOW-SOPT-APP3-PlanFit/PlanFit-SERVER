@@ -4,7 +4,7 @@ import com.planfit.server.domain.Routine;
 
 import java.util.List;
 
-public record GetAllExercisesDto(
+public record ExerciseGetAllResponse(
 
         Long id,
         String name,
@@ -13,10 +13,10 @@ public record GetAllExercisesDto(
         int count,
         int index
 ) {
-    public static List<GetAllExercisesDto> listOf(List<Routine> routines) {
+    public static List<ExerciseGetAllResponse> listOf(List<Routine> routines) {
         return routines
                 .stream()
-                .map(routine -> new GetAllExercisesDto(
+                .map(routine -> new ExerciseGetAllResponse(
                         routine.getId(),
                         routine.getExercise().getName(),
                         routine.getExercise().getSets().size(),

@@ -2,10 +2,8 @@ package com.planfit.server.controller;
 
 import com.planfit.server.common.ApiResponseUtil;
 import com.planfit.server.common.BaseResponse;
-import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.common.message.SuccessMessage;
-import com.planfit.server.dto.request.GetAllExercisesDto;
-import com.planfit.server.common.exception.BadRequestException;
+import com.planfit.server.dto.request.ExerciseGetAllResponse;
 import com.planfit.server.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +24,7 @@ public class ExerciseController {
     @GetMapping("/exercises")
     public ResponseEntity<BaseResponse<?>> exercisesList(@RequestHeader Long userId) {
 
-        List<GetAllExercisesDto> exercises = exerciseService.findExercises(userId);
+        List<ExerciseGetAllResponse> exercises = exerciseService.findExercises(userId);
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("exercises", exercises);
         return ApiResponseUtil.success(SuccessMessage.EXERCISES_FIND_SUCCESS, responseData);
