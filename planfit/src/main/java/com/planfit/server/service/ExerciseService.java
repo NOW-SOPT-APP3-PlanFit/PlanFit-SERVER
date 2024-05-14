@@ -1,7 +1,7 @@
 package com.planfit.server.service;
 
 import com.planfit.server.domain.User;
-import com.planfit.server.dto.request.ExerciseGetAllResponse;
+import com.planfit.server.dto.response.ExerciseGetAllResponse;
 import com.planfit.server.repository.RoutineRepository;
 import com.planfit.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

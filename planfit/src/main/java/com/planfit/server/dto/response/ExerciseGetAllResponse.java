@@ -1,4 +1,4 @@
-package com.planfit.server.dto.request;
+package com.planfit.server.dto.response;
 
 import com.planfit.server.domain.Routine;
 

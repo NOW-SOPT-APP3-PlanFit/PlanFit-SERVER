@@ -3,7 +3,7 @@ package com.planfit.server.controller;
 import com.planfit.server.common.ApiResponseUtil;
 import com.planfit.server.common.BaseResponse;
 import com.planfit.server.common.message.SuccessMessage;
-import com.planfit.server.dto.request.ExerciseGetAllResponse;
+import com.planfit.server.dto.response.ExerciseGetAllResponse;
 import com.planfit.server.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
