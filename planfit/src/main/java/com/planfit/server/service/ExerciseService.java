@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ExerciseService {
 
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
 
-    @Transactional(readOnly = true)
     //운동 리스트 조회
     public ExerciseGetAllResponse findExercises(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
