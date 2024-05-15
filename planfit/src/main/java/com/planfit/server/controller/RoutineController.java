@@ -27,7 +27,7 @@ public class RoutineController {
         return ApiResponseUtil.success(SuccessMessage.POST_EXERCISE_LIKE_SUCCESS);
     }
 
-    @DeleteMapping("/exercise/unlike")
+    @DeleteMapping("/exercise/{exerciseId}/unlike")
     public ResponseEntity<BaseResponse<?>> deleteExerciseLike(@RequestHeader Long userId,
                                                               @PathVariable Long exerciseId) {
 

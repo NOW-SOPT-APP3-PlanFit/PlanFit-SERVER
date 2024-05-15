@@ -13,21 +13,21 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class BaseResponse<T> {
-    private final HttpStatus status;
+    private final int status;
     private final String message;
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private final T data;
 
     public static BaseResponse<?> of(SuccessMessage successMessage) {
         return builder()
-                .status(successMessage.getStatus())
+                .status(successMessage.getStatus().value())
                 .message(successMessage.getMessage())
                 .build();
     }
 
     public static <T> BaseResponse<?> of(SuccessMessage successMessage, T data) {
         return builder()
-                .status(successMessage.getStatus())
+                .status(successMessage.getStatus().value())
                 .message(successMessage.getMessage())
                 .data(data)
                 .build();
@@ -35,7 +35,7 @@ public class BaseResponse<T> {
 
     public static BaseResponse<?> of(ErrorMessage errorMessage) {
         return builder()
-                .status(errorMessage.getStatus())
+                .status(errorMessage.getStatus().value())
                 .message(errorMessage.getMessage())
                 .build();
     }
