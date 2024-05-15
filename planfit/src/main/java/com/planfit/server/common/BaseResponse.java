@@ -7,12 +7,13 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class BaseResponse<T> {
-    private final int status;
+    private final HttpStatus status;
     private final String message;
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private final T data;
