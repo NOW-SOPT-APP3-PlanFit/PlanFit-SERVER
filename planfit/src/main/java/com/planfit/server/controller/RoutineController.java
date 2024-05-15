@@ -24,7 +24,7 @@ public class RoutineController {
 
         routineService.postExerciseLike(userId, exerciseId);
 
-        return ApiResponseUtil.success(SuccessMessage.POST_EXERCISE_LIKE_SUCCESS);
+        return ApiResponseUtil.success(SuccessMessage.EXERCISE_LIKE_POST_SUCCESS);
     }
 
     @DeleteMapping("/exercise/{exerciseId}/unlike")
@@ -33,7 +33,6 @@ public class RoutineController {
 
         routineService.deleteExerciseLike(userId, exerciseId);
 
-        return ApiResponseUtil.success(SuccessMessage.DELETE_EXERCISE_UNLIKE_SUCCESS);
-
+        return ApiResponseUtil.success(SuccessMessage.EXERCISE_DELETE_UNLIKE_SUCCESS);
     }
 }

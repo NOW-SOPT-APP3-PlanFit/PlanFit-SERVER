@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SuccessMessage {
 
-    POST_EXERCISE_LIKE_SUCCESS(HttpStatus.OK, "해당 운동에 좋아요를 눌렀습니다."),
-    DELETE_EXERCISE_UNLIKE_SUCCESS(HttpStatus.OK, "해당 운동에 좋아요를 취소했습니다.")
+    EXERCISE_LIKE_POST_SUCCESS(HttpStatus.OK, "해당 운동 좋아요 등록에 성공했습니다."),
+    EXERCISE_DELETE_UNLIKE_SUCCESS(HttpStatus.OK, "해당 운동 좋아요 취소에 성공했습니다")
 
     ;
     private final HttpStatus status;
