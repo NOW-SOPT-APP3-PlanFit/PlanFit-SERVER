@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/main")
     public ResponseEntity<BaseResponse<?>> getUser(
-            @RequestHeader(required = false) Long userId
+            @RequestHeader(name = "user_id") Long userId
     ) {
         return ApiResponseUtil.success(
                 SuccessMessage.USER_MAIN_GET_SUCCESS,
@@ -29,8 +29,8 @@ public class UserController {
 
     @PutMapping("/main")
     public ResponseEntity<BaseResponse<?>> putUser(
-            @RequestHeader(required = false) Long userId,
-            UserPutRequest request
+            @RequestHeader(name = "user_id") Long userId,
+            @RequestBody UserPutRequest request
     ) {
         userService.updateUser(userId, request);
 
