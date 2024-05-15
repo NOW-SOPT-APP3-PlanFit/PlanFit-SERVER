@@ -26,4 +26,12 @@ public class Routine {
     @JoinColumn(name = "exercise_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
+
+    public void setTemporarySequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    public void updateSequence(int sequence) {
+        this.sequence = sequence;
+    }
 }
