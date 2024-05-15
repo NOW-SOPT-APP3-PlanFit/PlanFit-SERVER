@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -19,14 +20,14 @@ public class BaseResponse<T> {
 
     public static BaseResponse<?> of(SuccessMessage successMessage) {
         return builder()
-                .status(successMessage.getStatus())
+                .status(successMessage.getStatus().value())
                 .message(successMessage.getMessage())
                 .build();
     }
 
     public static <T> BaseResponse<?> of(SuccessMessage successMessage, T data) {
         return builder()
-                .status(successMessage.getStatus())
+                .status(successMessage.getStatus().value())
                 .message(successMessage.getMessage())
                 .data(data)
                 .build();
@@ -34,8 +35,15 @@ public class BaseResponse<T> {
 
     public static BaseResponse<?> of(ErrorMessage errorMessage) {
         return builder()
-                .status(errorMessage.getStatus())
+                .status(errorMessage.getStatus().value())
                 .message(errorMessage.getMessage())
+                .build();
+    }
+
+        public static BaseResponse<?> of(String errorMessage) {
+        return builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .message(errorMessage)
                 .build();
     }
 }
