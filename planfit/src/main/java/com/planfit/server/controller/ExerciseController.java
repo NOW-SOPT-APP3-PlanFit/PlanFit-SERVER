@@ -3,15 +3,10 @@ package com.planfit.server.controller;
 import com.planfit.server.common.ApiResponseUtil;
 import com.planfit.server.common.BaseResponse;
 import com.planfit.server.common.message.SuccessMessage;
-import com.planfit.server.dto.response.ExerciseGetAllResponse;
 import com.planfit.server.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,9 +19,6 @@ public class ExerciseController {
     @GetMapping("/exercises")
     public ResponseEntity<BaseResponse<?>> exercisesList(@RequestHeader Long userId) {
 
-        List<ExerciseGetAllResponse> exercises = exerciseService.findExercises(userId);
-        Map<String, Object> responseData = new HashMap<>();
-        responseData.put("exercises", exercises);
-        return ApiResponseUtil.success(SuccessMessage.EXERCISES_FIND_SUCCESS, responseData);
+        return ApiResponseUtil.success(SuccessMessage.EXERCISES_FIND_SUCCESS, exerciseService.findExercises(userId));
     }
 }

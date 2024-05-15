@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ExerciseService {
@@ -19,9 +17,9 @@ public class ExerciseService {
 
     @Transactional(readOnly = true)
     //운동 리스트 조회
-    public List<ExerciseGetAllResponse> findExercises(Long userId) {
+    public ExerciseGetAllResponse findExercises(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
 
-        return ExerciseGetAllResponse.listOf(routineRepository.findAllByUserOrderBySequenceAsc(user));
+        return ExerciseGetAllResponse.fromRoutines(routineRepository.findAllByUserOrderBySequenceAsc(user));
     }
 }
