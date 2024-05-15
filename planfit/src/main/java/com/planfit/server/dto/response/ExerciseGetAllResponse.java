@@ -6,23 +6,9 @@ import java.util.List;
 
 public record ExerciseGetAllResponse(
 
-        Long id,
-        String name,
-        int set,
-        int weight,
-        int count,
-        int index
+        List<ExerciseGetResponse> exercises
 ) {
-    public static List<ExerciseGetAllResponse> listOf(List<Routine> routines) {
-        return routines
-                .stream()
-                .map(routine -> new ExerciseGetAllResponse(
-                        routine.getId(),
-                        routine.getExercise().getName(),
-                        routine.getExercise().getSets().size(),
-                        routine.getExercise().getWeight(),
-                        routine.getExercise().getTimes(),
-                        routine.getSequence()
-                )).toList();
+    public static ExerciseGetAllResponse fromRoutines(List<Routine> routines) {
+        return new ExerciseGetAllResponse(ExerciseGetResponse.listOf(routines));
     }
 }
