@@ -37,30 +37,36 @@ public class ExerciseService {
     public void reorderExercises(Long userId, List<ExerciseReorderRequest> exercises) {
         User user = userRepository.findById(userId).orElseThrow();
 
-        for (ExerciseReorderRequest exercise : exercises) {
-            getExercise(exercise.id());
-        }
-
         //모든 운동의 sequence를 임시값으로 초기화
-        List<Routine> routines = routineRepository.findAllByUserId(userId);
-        int tempSequence = -1000;
-        for (Routine routine : routines) {
-            routine.setTemporarySequence(tempSequence--);
-        }
-        routineRepository.saveAll(routines);
+        List<Routine> routines = initializeRoutineSequences(userId);
 
         //새로운 순서로 업데이트
-        for (ExerciseReorderRequest exercise : exercises) {
-            Routine routine = routineRepository.findByExerciseIdAndUserId(exercise.id(), user.getId())
-                    .orElseThrow(() -> new NotFoundException(ErrorMessage.ROUTINE_NOT_FOUND));
-            routine.updateSequence(exercise.index());
-            routineRepository.save(routine);
-        }
+        updateRoutinesWithNewOrder(exercises, user, routines);
 
     }
 
     public Exercise getExercise(Long exerciseId) {
         return exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.EXERCISE_NOT_FOUND));
+    }
+
+    private List<Routine> initializeRoutineSequences(Long userId) {
+        List<Routine> routines = routineRepository.findAllByUserId(userId);
+        int tempSequence = -1000;
+        for (Routine routine : routines) {
+            routine.setTemporarySequence(tempSequence--);
+        }
+        routineRepository.saveAll(routines);
+        return routines;
+    }
+
+    private void updateRoutinesWithNewOrder(List<ExerciseReorderRequest> exercises, User user, List<Routine> routines) {
+        for (ExerciseReorderRequest request : exercises) {
+            Exercise exercise = getExercise(request.id());
+            Routine routine = routineRepository.findByExerciseAndUser(exercise, user)
+                    .orElseThrow(() -> new NotFoundException(ErrorMessage.ROUTINE_NOT_FOUND));
+            routine.updateSequence(request.index());
+        }
+        routineRepository.saveAll(routines);
     }
 }

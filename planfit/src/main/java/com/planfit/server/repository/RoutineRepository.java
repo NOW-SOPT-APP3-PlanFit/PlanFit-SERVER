@@ -1,5 +1,6 @@
 package com.planfit.server.repository;
 
+import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
 import com.planfit.server.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,5 @@ public interface RoutineRepository extends JpaRepository<Routine, Long> {
 
     List<Routine> findAllByUserId(Long userId);
 
-    Optional<Routine> findByExerciseIdAndUserId(Long id, Long id1);
+    Optional<Routine> findByExerciseAndUser(Exercise exercise1, User user);
 }
