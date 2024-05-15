@@ -1,5 +1,6 @@
 package com.planfit.server.domain;
 
+import com.planfit.server.dto.request.UserPutRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Routine> routines = new ArrayList<>();
+
+    public void update(UserPutRequest request) {
+        minute = request.minute();
+        condition = request.condition();
+    }
 }
