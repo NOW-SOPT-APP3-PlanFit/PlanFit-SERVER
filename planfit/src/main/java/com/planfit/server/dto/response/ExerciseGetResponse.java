@@ -19,7 +19,7 @@ public record ExerciseGetResponse(
                 .map(routine -> new ExerciseGetResponse(
                         routine.getId(),
                         routine.getExercise().getName(),
-                        routine.getExercise().getSets().size(),
+                        routine.getSets().size(),
                         routine.getExercise().getWeight(),
                         routine.getExercise().getTimes(),
                         routine.getSequence()
