@@ -12,6 +12,7 @@ public enum ErrorMessage {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 사용자가 존재하지 않습니다."),
     EXERCISE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 운동이 존재하지 않습니다."),
     EXERCISE_BAD_REQUEST(HttpStatus.BAD_REQUEST, "운동리스트 조회에 실패했습니다."),
+    ROUTINE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 루틴이 존재하지 않습니다."),
     SET_OVER_INDEX_REQUEST(HttpStatus.BAD_REQUEST, "이미 모든 세트가 완료 상태입니다")
     ;
 

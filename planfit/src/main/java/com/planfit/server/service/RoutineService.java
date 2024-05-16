@@ -1,5 +1,7 @@
 package com.planfit.server.service;
 
+import com.planfit.server.common.exception.NotFoundException;
+import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
 import com.planfit.server.domain.Set;
@@ -25,8 +27,8 @@ public class RoutineService {
 
     @Transactional
     public Routine createRoutine(Long userId, Long exerciseId) {
-        User user = userService.getUserById(userId);
-        Exercise exercise = exerciseService.getExerciseById(exerciseId);
+        User user = getUserById(userId);
+        Exercise exercise = getExerciseById(exerciseId);
         int sequence = getNextSequence();
 
         Routine routine = Routine.create(user, exercise, sequence);
@@ -38,26 +40,36 @@ public class RoutineService {
         return routineRepository.findMaxSequence().orElse(0) + 1;
     }
 
-    public Routine getRoutine(User user, Exercise exercise) {
-        return routineRepository.findByUserAndExercise(user, exercise).orElseThrow();
-    }
-
     @Transactional
     public void postExerciseLike(Long userId, Long exerciseId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow();
+        User user = getUserById(userId);
+        Exercise exercise = getExerciseById(exerciseId);
 
-        Routine routine = getRoutine(user, exercise);
+        Routine routine = getRoutineByUserAndExercise(user, exercise);
         routine.like();
     }
 
     @Transactional
     public void deleteExerciseLike(Long userId, Long exerciseId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow();
+        User user = getUserById(userId);
+        Exercise exercise = getExerciseById(exerciseId);
 
-        Routine routine = getRoutine(user, exercise);
+        Routine routine = getRoutineByUserAndExercise(user, exercise);
         routine.unlike();
+    }
+
+    public User getUserById(Long userId) {
+        return userService.getUserById(userId);
+    }
+
+    public Exercise getExerciseById(Long exerciseId) {
+        return exerciseService.getExerciseById(exerciseId);
+    }
+
+    public Routine getRoutineByUserAndExercise(User user, Exercise exercise) {
+        return routineRepository.findByUserAndExercise(user, exercise).orElseThrow(
+                () -> new NotFoundException(ErrorMessage.ROUTINE_NOT_FOUND)
+        );
     }
 
 }

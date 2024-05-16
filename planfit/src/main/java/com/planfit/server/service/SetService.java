@@ -31,7 +31,7 @@ public class SetService {
         User user = findUserById(userId);
         Exercise exercise = findExerciseById(exerciseId);
 
-        Routine routine = findRoutineById(user, exercise);
+        Routine routine = findRoutine(user, exercise);
 
         Set.addSet(routine);
     }
@@ -41,7 +41,7 @@ public class SetService {
         User user = findUserById(userId);
         Exercise exercise = findExerciseById(exerciseId);
 
-        Routine routine = findRoutineById(user, exercise);
+        Routine routine = findRoutine(user, exercise);
 
         Set sets = findFirstIncompleteSet(routine.getSets());
         sets.setIsDone();
@@ -63,8 +63,8 @@ public class SetService {
         return exerciseService.getExerciseById(exerciseId);
     }
 
-    public Routine findRoutineById(User user, Exercise exercise) {
-        return routineService.getRoutine(user, exercise);
+    public Routine findRoutine(User user, Exercise exercise) {
+        return routineService.getRoutineByUserAndExercise(user, exercise);
     }
 
 }

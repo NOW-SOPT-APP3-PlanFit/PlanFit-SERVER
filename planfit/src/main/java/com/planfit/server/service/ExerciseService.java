@@ -22,10 +22,11 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
+    private final UserService userService;
 
     //운동 리스트 조회
     public ExerciseGetAllResponse findExercises(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userService.getUserById(userId);
 
         return ExerciseGetAllResponse.fromRoutines(routineRepository.findAllByUserOrderBySequenceAsc(user));
     }
