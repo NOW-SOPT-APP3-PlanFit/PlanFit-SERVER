@@ -60,11 +60,11 @@ public class ExerciseService {
     }
 
     private void updateRoutinesWithNewOrder(List<ExerciseReorderRequest> exercises, User user) {
-        for (ExerciseReorderRequest request : exercises) {
+        exercises.stream().forEach(request -> {
             Exercise exercise = getExercise(request.id());
             Routine routine = routineRepository.findByExerciseAndUser(exercise, user)
                     .orElseThrow(() -> new NotFoundException(ErrorMessage.ROUTINE_NOT_FOUND));
             routine.updateSequence(request.index());
-        }
+        });
     }
 }
