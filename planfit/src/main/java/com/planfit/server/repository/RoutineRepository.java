@@ -16,4 +16,6 @@ public interface RoutineRepository extends JpaRepository<Routine, Long> {
 
     @Query("SELECT MAX(r.sequence) FROM Routine r")
     Optional<Integer> findMaxSequence();
+
+    boolean existsByUserAndExercise(User user, Exercise exercise);
 }

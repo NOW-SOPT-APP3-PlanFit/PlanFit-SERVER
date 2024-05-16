@@ -30,12 +30,21 @@ public class RoutineService {
         User user = getUserById(userId);
         Exercise exercise = getExerciseById(exerciseId);
 
+        checkRoutineExist(user, exercise);
 
         int sequence = getNextSequence();
 
         Routine routine = Routine.create(user, exercise, sequence);
 
         return routineRepository.save(routine);
+    }
+
+    private void checkRoutineExist(User user, Exercise exercise) {
+        if (routineRepository.existsByUserAndExercise(user, exercise)) {
+            throw new NotFoundException(ErrorMessage.ROUTINE_ALREADY_EXIST);
+        } else {
+            return;
+        }
     }
 
     private int getNextSequence() {
