@@ -32,4 +32,12 @@ public class Routine {
 
     @OneToMany(mappedBy = "routine")
     private List<Set> sets = new ArrayList<>();
+
+    public void like() {
+        this.isLike = true;
+    }
+
+    public void unlike() {
+        this.isLike = false;
+    }
 }
