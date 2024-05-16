@@ -33,6 +33,5 @@ public class ExerciseService {
     public Exercise getExerciseById(Long exerciseId) {
         return exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.EXERCISE_NOT_FOUND));
-
     }
 }

@@ -48,6 +48,4 @@ public class RoutineController {
 
         return ApiResponseUtil.success(SuccessMessage.EXERCISE_DELETE_UNLIKE_SUCCESS);
     }
-
-
 }

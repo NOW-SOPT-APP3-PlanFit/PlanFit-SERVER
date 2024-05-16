@@ -40,7 +40,12 @@ public class Set {
     }
 
     public static void addSet(Routine routine) {
-        Set set = Set.builder().routine(routine).isDone(false).build();
+        Set set = Set
+                .builder()
+                .routine(routine)
+                .isDone(false)
+                .build();
+
         routine.getSets().add(set);
     }
 
