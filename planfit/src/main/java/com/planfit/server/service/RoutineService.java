@@ -19,6 +19,27 @@ public class RoutineService {
     private final UserRepository userRepository;
     private final ExerciseRepository exerciseRepository;
 
+    private final UserService userService;
+    private final ExerciseService exerciseService;
+
+    @Transactional
+    public Routine createRoutine(Long userId, Long exerciseId) {
+        User user = userService.getUserById(userId);
+        Exercise exercise = exerciseService.getExerciseById(exerciseId);
+        int sequence = getNextSequence();
+
+        Routine routine = Routine.create(user, exercise, sequence);
+
+        return routineRepository.save(routine);
+    }
+
+    private int getNextSequence() {
+        return routineRepository.findMaxSequence().orElse(0) + 1;
+    }
+
+    public Routine getRoutine(User user, Exercise exercise) {
+        return routineRepository.findByUserAndExercise(user, exercise).orElseThrow();
+    }
 
     @Transactional
     public void postExerciseLike(Long userId, Long exerciseId) {
@@ -28,10 +49,6 @@ public class RoutineService {
         Routine routine = getRoutine(user, exercise);
         routine.like();
         routineRepository.save(routine);
-    }
-
-    public Routine getRoutine(User user, Exercise exercise) {
-        return routineRepository.findByUserAndExercise(user, exercise).orElseThrow();
     }
 
     @Transactional

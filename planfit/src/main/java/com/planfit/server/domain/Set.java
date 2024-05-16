@@ -3,6 +3,10 @@ package com.planfit.server.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -20,4 +24,17 @@ public class Set {
     @JoinColumn(name = "routine_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Routine routine;
+
+    public static List<Set> createSets(Routine routine) {
+        List<Set> sets = new ArrayList<>();
+
+        IntStream.range(0, 4).forEach(i ->
+                sets.add(Set.builder()
+                        .routine(routine)
+                        .build()
+                )
+        );
+
+        return sets;
+    }
 }
