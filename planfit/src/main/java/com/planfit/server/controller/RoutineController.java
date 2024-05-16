@@ -18,6 +18,18 @@ public class RoutineController {
 
     private final RoutineService routineService;
 
+    @PostMapping("/routine")
+    public ResponseEntity<BaseResponse<?>> postRoutine(
+            @RequestHeader(name = "user_id") Long userId,
+            @RequestParam(name = "exercise_id") Long exerciseId
+    ) {
+        routineService.createRoutine(userId, exerciseId);
+
+        return ApiResponseUtil.success(
+                SuccessMessage.ROUTINE_CREATE_SUCCESS
+        );
+    }
+
     @PatchMapping("/exercise/{exerciseId}/like")
     public ResponseEntity<BaseResponse<?>> postExerciseLike(@RequestHeader Long userId,
                                                             @PathVariable Long exerciseId) {
