@@ -51,10 +51,11 @@ public class ExerciseService {
     }
 
     private void initializeRoutineSequences(Long userId) {
-        List<Routine> routines = routineRepository.findAllByUserId(userId);
+        User user = userRepository.findById(userId).orElseThrow();
+        List<Routine> routines = user.getRoutines();
         int tempSequence = -1000;
         for (Routine routine : routines) {
-            routine.setTemporarySequence(tempSequence--);
+            routine.updateSequence(tempSequence--);
         }
     }
 
