@@ -3,6 +3,9 @@ package com.planfit.server.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -26,6 +29,9 @@ public class Routine {
     @JoinColumn(name = "exercise_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
+
+    @OneToMany(mappedBy = "routine")
+    private List<Set> sets = new ArrayList<>();
 
     public void like() {
         this.isLike = true;

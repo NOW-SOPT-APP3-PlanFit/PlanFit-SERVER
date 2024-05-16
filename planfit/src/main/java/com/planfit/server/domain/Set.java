@@ -17,7 +17,7 @@ public class Set {
 
     private boolean isDone;
 
-    @JoinColumn(name = "exercise_id")
+    @JoinColumn(name = "routine_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Exercise exercise;
+    private Routine routine;
 }

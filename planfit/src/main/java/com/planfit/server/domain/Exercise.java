@@ -24,6 +24,4 @@ public class Exercise {
 
     @OneToMany(mappedBy = "exercise")
     private List<Routine> routines = new ArrayList<>();
-    @OneToMany(mappedBy = "exercise")
-    private List<Set> sets = new ArrayList<>();
 }
