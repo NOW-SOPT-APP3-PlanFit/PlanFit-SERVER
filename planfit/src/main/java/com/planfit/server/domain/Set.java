@@ -41,4 +41,8 @@ public class Set {
         Set set = Set.builder().routine(routine).isDone(false).build();
         routine.getSets().add(set);
     }
+
+    public void setIsDone() {
+        this.isDone = true;
+    }
 }

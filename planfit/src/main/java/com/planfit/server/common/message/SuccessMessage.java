@@ -20,9 +20,12 @@ public enum SuccessMessage {
 
     // routine
     ROUTINE_CREATE_SUCCESS(HttpStatus.OK, "루틴 등록에 성공했습니다."),
-    ROUTINE_ADD_SET_SUCCESS(HttpStatus.OK, "해당 운동 세트 추가에 성공했습니다.")
+
+    //sets
+    SET_ADD_SET_SUCCESS(HttpStatus.OK, "해당 운동 세트 추가에 성공했습니다."),
+    SET_COMPLETE_SET_SUCCESS(HttpStatus.OK, "해당 운동 세트 완료에 성공했습니다.")
     ;
-  
+
     private final HttpStatus status;
     private final String message;
 }

@@ -1,19 +1,19 @@
 package com.planfit.server.service;
 
 
+import com.planfit.server.common.exception.IndexOutBoundsException;
+import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
 import com.planfit.server.domain.Set;
 import com.planfit.server.domain.User;
-import com.planfit.server.repository.ExerciseRepository;
-import com.planfit.server.repository.RoutineRepository;
 import com.planfit.server.repository.SetRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,13 +24,47 @@ public class SetService {
     private final UserService userService;
     private final RoutineService routineService;
 
+    private final SetRepository setRepository;
+
     @Transactional
     public void addSet(final Long userId, final Long exerciseId) {
-        User user = userService.getUserById(userId);
-        Exercise exercise = exerciseService.getExerciseById(exerciseId);
+        User user = findUserById(userId);
+        Exercise exercise = findExerciseById(exerciseId);
 
-        Routine routine = routineService.getRoutine(user, exercise);
+        Routine routine = findRoutineById(user, exercise);
 
         Set.addSet(routine);
     }
+
+    @Transactional
+    public void completeSet(final Long userId, final Long exerciseId) {
+        User user = findUserById(userId);
+        Exercise exercise = findExerciseById(exerciseId);
+
+        Routine routine = findRoutineById(user, exercise);
+
+        Set sets = findFirstIncompleteSet(routine.getSets());
+        sets.setIsDone();
+    }
+
+    public Set findFirstIncompleteSet(List<Set> sets) {
+        return sets.stream()
+                .filter(set -> !set.isDone())
+                .findFirst().orElseThrow(
+                        () -> new IndexOutBoundsException(ErrorMessage.SET_OVER_INDEX_REQUEST)
+                );
+    }
+
+    public User findUserById(Long userId) {
+        return userService.getUserById(userId);
+    }
+
+    public Exercise findExerciseById(Long exerciseId) {
+        return exerciseService.getExerciseById(exerciseId);
+    }
+
+    public Routine findRoutineById(User user, Exercise exercise) {
+        return routineService.getRoutine(user, exercise);
+    }
+
 }

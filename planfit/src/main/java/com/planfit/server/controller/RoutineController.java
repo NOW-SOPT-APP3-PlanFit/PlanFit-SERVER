@@ -31,7 +31,7 @@ public class RoutineController {
         );
     }
 
-    @PatchMapping("/exercise/{exerciseId}/like")
+    @PatchMapping("/exercises/{exerciseId}/like")
     public ResponseEntity<BaseResponse<?>> postExerciseLike(@RequestHeader Long userId,
                                                             @PathVariable Long exerciseId) {
 
@@ -40,7 +40,7 @@ public class RoutineController {
         return ApiResponseUtil.success(SuccessMessage.EXERCISE_LIKE_POST_SUCCESS);
     }
 
-    @PatchMapping("/exercise/{exerciseId}/unlike")
+    @PatchMapping("/exercises/{exerciseId}/unlike")
     public ResponseEntity<BaseResponse<?>> deleteExerciseLike(@RequestHeader Long userId,
                                                               @PathVariable Long exerciseId) {
 

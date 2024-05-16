@@ -24,13 +24,22 @@ public class SetController {
 
     private final SetService setService;
 
-    @PostMapping("/exercise/{exerciseId}/set")
+    @PostMapping("/exercises/{exerciseId}/set")
     public ResponseEntity<BaseResponse<?>> postAddSet(@RequestHeader(name = "user_id") final Long userId,
                                                       @PathVariable final Long exerciseId) {
         setService.addSet(userId, exerciseId);
 
-        return ApiResponseUtil.success(SuccessMessage.ROUTINE_ADD_SET_SUCCESS);
+        return ApiResponseUtil.success(SuccessMessage.SET_ADD_SET_SUCCESS);
 
+    }
+
+    @PutMapping("/exercises/{exerciseId}/set")
+    public ResponseEntity<BaseResponse<?>> putSetIsDone(@RequestHeader final Long userId,
+                                                        @PathVariable final Long exerciseId) {
+
+        setService.completeSet(userId, exerciseId);
+
+        return ApiResponseUtil.success(SuccessMessage.SET_COMPLETE_SET_SUCCESS);
     }
 
 }
