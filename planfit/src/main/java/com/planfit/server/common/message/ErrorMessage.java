@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ErrorMessage {
 
+    EXERCISE_BAD_REQUEST(HttpStatus.BAD_REQUEST.value(), "운동리스트 조회에 실패했습니다."),
+
     ;
 
     private final HttpStatus status;
