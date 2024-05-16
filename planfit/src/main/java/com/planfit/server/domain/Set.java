@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static com.planfit.server.common.Constant.DEFAULT_SET_COUNT;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -28,7 +30,7 @@ public class Set {
     public static List<Set> createSets(Routine routine) {
         List<Set> sets = new ArrayList<>();
 
-        IntStream.range(0, 4).forEach(i ->
+        IntStream.range(0, DEFAULT_SET_COUNT).forEach(i ->
                 sets.add(Set.builder()
                         .routine(routine)
                         .build()

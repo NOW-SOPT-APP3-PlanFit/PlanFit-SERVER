@@ -29,6 +29,8 @@ public class RoutineService {
     public Routine createRoutine(Long userId, Long exerciseId) {
         User user = getUserById(userId);
         Exercise exercise = getExerciseById(exerciseId);
+
+
         int sequence = getNextSequence();
 
         Routine routine = Routine.create(user, exercise, sequence);
