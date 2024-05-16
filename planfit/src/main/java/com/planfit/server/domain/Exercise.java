@@ -21,8 +21,6 @@ public class Exercise {
     private String name;
     private int weight;
     private int times;
-    @Column(name = "seq", unique = true)
-    private int sequence;
 
     @OneToMany(mappedBy = "exercise")
     private List<Routine> routines = new ArrayList<>();

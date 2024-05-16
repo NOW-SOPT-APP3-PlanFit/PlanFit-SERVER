@@ -16,6 +16,9 @@ public class Routine {
 
     private boolean isLike;
 
+    @Column(name = "seq", unique = true)
+    private int sequence;
+
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -23,4 +26,12 @@ public class Routine {
     @JoinColumn(name = "exercise_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
+
+    public void like() {
+        this.isLike = true;
+    }
+
+    public void unlike() {
+        this.isLike = false;
+    }
 }
