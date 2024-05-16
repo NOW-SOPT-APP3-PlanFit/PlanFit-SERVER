@@ -18,7 +18,7 @@ public class RoutineController {
 
     private final RoutineService routineService;
 
-    @PostMapping("/exercise/{exerciseId}/like")
+    @PatchMapping("/exercise/{exerciseId}/like")
     public ResponseEntity<BaseResponse<?>> postExerciseLike(@RequestHeader Long userId,
                                                             @PathVariable Long exerciseId) {
 
@@ -27,7 +27,7 @@ public class RoutineController {
         return ApiResponseUtil.success(SuccessMessage.EXERCISE_LIKE_POST_SUCCESS);
     }
 
-    @DeleteMapping("/exercise/{exerciseId}/unlike")
+    @PatchMapping("/exercise/{exerciseId}/unlike")
     public ResponseEntity<BaseResponse<?>> deleteExerciseLike(@RequestHeader Long userId,
                                                               @PathVariable Long exerciseId) {
 
