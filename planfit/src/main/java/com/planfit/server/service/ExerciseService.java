@@ -22,7 +22,6 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
-    private final ExerciseRepository exerciseRepository;
 
     //운동 리스트 조회
     public ExerciseGetAllResponse findExercises(Long userId) {
@@ -34,8 +33,6 @@ public class ExerciseService {
     public Exercise getExerciseById(Long exerciseId) {
         return exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.EXERCISE_NOT_FOUND));
-    //전체 운동 리스트 조회
-    public List<Exercise> getAllExercises() {
-        return exerciseRepository.findAll();
+
     }
 }

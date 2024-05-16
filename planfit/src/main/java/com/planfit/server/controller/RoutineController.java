@@ -6,6 +6,7 @@ import com.planfit.server.common.BaseResponse;
 import com.planfit.server.common.message.SuccessMessage;
 import com.planfit.server.domain.Exercise;
 import com.planfit.server.service.RoutineService;
+import com.sun.net.httpserver.Authenticator;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -47,4 +48,6 @@ public class RoutineController {
 
         return ApiResponseUtil.success(SuccessMessage.EXERCISE_DELETE_UNLIKE_SUCCESS);
     }
+
+
 }

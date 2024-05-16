@@ -2,6 +2,7 @@ package com.planfit.server.service;
 
 import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
+import com.planfit.server.domain.Set;
 import com.planfit.server.domain.User;
 import com.planfit.server.repository.ExerciseRepository;
 import com.planfit.server.repository.RoutineRepository;
@@ -48,7 +49,6 @@ public class RoutineService {
 
         Routine routine = getRoutine(user, exercise);
         routine.like();
-        routineRepository.save(routine);
     }
 
     @Transactional
@@ -58,6 +58,6 @@ public class RoutineService {
 
         Routine routine = getRoutine(user, exercise);
         routine.unlike();
-        routineRepository.save(routine);
     }
+
 }

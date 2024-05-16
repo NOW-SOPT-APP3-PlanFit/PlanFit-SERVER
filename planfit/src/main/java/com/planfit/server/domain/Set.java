@@ -34,7 +34,11 @@ public class Set {
                         .build()
                 )
         );
-
         return sets;
+    }
+
+    public static void addSet(Routine routine) {
+        Set set = Set.builder().routine(routine).isDone(false).build();
+        routine.getSets().add(set);
     }
 }
