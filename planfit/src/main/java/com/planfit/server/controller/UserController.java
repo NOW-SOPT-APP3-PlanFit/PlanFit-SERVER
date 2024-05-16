@@ -6,6 +6,7 @@ import com.planfit.server.common.message.SuccessMessage;
 import com.planfit.server.dto.request.UserPutRequest;
 import com.planfit.server.dto.response.UserGetResponse;
 import com.planfit.server.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class UserController {
     @PutMapping("/main")
     public ResponseEntity<BaseResponse<?>> putUser(
             @RequestHeader(name = "user_id") Long userId,
-            @RequestBody UserPutRequest request
+            @Valid @RequestBody UserPutRequest request
     ) {
         userService.updateUser(userId, request);
 

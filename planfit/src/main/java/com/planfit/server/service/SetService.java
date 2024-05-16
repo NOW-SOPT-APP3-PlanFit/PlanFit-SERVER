@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +23,6 @@ public class SetService {
     private final UserService userService;
     private final RoutineService routineService;
 
-    private final SetRepository setRepository;
 
     @Transactional
     public void addSet(final Long userId, final Long exerciseId) {

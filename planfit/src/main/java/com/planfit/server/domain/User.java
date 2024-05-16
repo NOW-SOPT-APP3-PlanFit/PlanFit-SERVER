@@ -20,6 +20,7 @@ public class User {
     private Long id;
 
     private int round;
+
     private int minute;
     private String condition;
 

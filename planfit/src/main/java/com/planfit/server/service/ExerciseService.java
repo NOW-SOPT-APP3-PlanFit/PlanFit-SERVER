@@ -20,7 +20,6 @@ import java.util.List;
 public class ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
-    private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
     private final UserService userService;
 

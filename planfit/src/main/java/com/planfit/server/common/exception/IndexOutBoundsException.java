@@ -6,5 +6,4 @@ public class IndexOutBoundsException extends PlanfitException {
     public IndexOutBoundsException(ErrorMessage errorMessage) {
         super(errorMessage);
     }
-
 }

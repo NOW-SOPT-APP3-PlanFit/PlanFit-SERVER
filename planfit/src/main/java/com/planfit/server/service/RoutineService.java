@@ -19,9 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoutineService {
 
     private final RoutineRepository routineRepository;
-    private final UserRepository userRepository;
-    private final ExerciseRepository exerciseRepository;
-
     private final UserService userService;
     private final ExerciseService exerciseService;
 

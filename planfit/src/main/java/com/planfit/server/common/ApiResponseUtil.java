@@ -2,6 +2,7 @@ package com.planfit.server.common;
 
 import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.common.message.SuccessMessage;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public interface ApiResponseUtil {
@@ -17,6 +18,11 @@ public interface ApiResponseUtil {
 
     static ResponseEntity<BaseResponse<?>> failure(ErrorMessage errorMessage) {
         return ResponseEntity.status(errorMessage.getStatus())
+                .body(BaseResponse.of(errorMessage));
+    }
+
+    static ResponseEntity<BaseResponse<?>> validFailure(String errorMessage) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(BaseResponse.of(errorMessage));
     }
 }
