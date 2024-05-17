@@ -50,19 +50,20 @@ jobs:
         run: |
           ./planfit/gradlew build --project-dir ./planfit -x test
 
-      # docker variables debugging
-      - name: check docker variables
-        run: |
-          echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
-          echo "DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}"
+      # docker login
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        
 
       # docker build & push to production
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/planfit:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/planfit:latest
+          docker build -f Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/planfit .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/planfit
 
       ## deploy to production
       - name: Deploy to prod
