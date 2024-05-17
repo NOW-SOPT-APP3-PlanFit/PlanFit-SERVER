@@ -24,10 +24,12 @@ public class ExerciseService {
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
     private final ExerciseRepository exerciseRepository;
+    private final UserService userService;
+    private final RoutineService routineService;
 
     //운동 리스트 조회
     public ExerciseGetAllResponse findExercises(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userService.getUserById(userId);
 
         return ExerciseGetAllResponse.fromRoutines(routineRepository.findAllByUserOrderBySequenceAsc(user));
     }
@@ -35,14 +37,10 @@ public class ExerciseService {
     @Transactional
     //운동 리스트 순서 변경
     public void reorderExercises(Long userId, List<ExerciseReorderRequest> exercises) {
-        User user = userRepository.findById(userId).orElseThrow();
-
-        //모든 운동의 sequence를 임시값으로 초기화
-//        initializeRoutineSequences(userId);
+        User user = userService.getUserById(userId);
 
         //새로운 순서로 업데이트
         updateRoutinesWithNewOrder(exercises, user);
-
     }
 
     public Exercise getExercise(Long exerciseId) {
@@ -53,8 +51,7 @@ public class ExerciseService {
     private void updateRoutinesWithNewOrder(List<ExerciseReorderRequest> exercises, User user) {
         exercises.stream().forEach(request -> {
             Exercise exercise = getExercise(request.id());
-            Routine routine = routineRepository.findByExerciseAndUser(exercise, user)
-                    .orElseThrow(() -> new NotFoundException(ErrorMessage.ROUTINE_NOT_FOUND));
+            Routine routine = routineService.getRoutine(user, exercise);
             routine.updateSequence(request.index());
         });
     }
