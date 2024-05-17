@@ -1,30 +1,15 @@
-# 빌드 이미지로 OpenJDK 17 & Gradle을 지정
-FROM gradle:7.6.1-jdk17 AS build
+# open jdk 11 버전의 환경을 구성
+FROM adoptopenjdk/openjdk17:latest
 
-# 소스코드를 복사할 작업 디렉토리를 생성
-WORKDIR /app
-
-# 라이브러리 설치에 필요한 파일만 복사
-COPY build.gradle settings.gradle ./
-COPY src ./src
-
-RUN gradle dependencies --no-daemon
-
-# 호스트 머신의 소스코드를 작업 디렉토리로 복사
-COPY . /app
-
-# Gradle 빌드를 실행하여 JAR 파일 생성
-RUN gradle clean build --no-daemon -x test
-
-# 런타임 이미지로 OpenJDK 17-jre-slim 지정
-FROM openjdk:17
-
-# 애플리케이션을 실행할 작업 디렉토리를 생성
-WORKDIR /app
-
-# 빌드 이미지에서 생성된 JAR 파일을 런타임 이미지로 복사
-COPY --from=build /app/build/libs/planfit-0.0.1-SNAPSHOT.jar /app/planfit.jar
-
+# 노출할 포트를 설정
 EXPOSE 8081
 
-ENTRYPOINT ["nohup", "java", "-jar", "/app/planfit.jar", "&"]
+# build가 되는 시점에 JAR_FILE이라는 변수 명에 build/libs/*.jar 선언
+# build/libs - gradle로 빌드했을 때 jar 파일이 생성되는 경로
+ARG JAR_FILE=build/libs/*.jar
+
+# JAR_FILE을 app.jar로 복사
+COPY ${JAR_FILE} app.jar
+
+# 운영 및 개발에서 사용되는 환경 설정을 분리
+ENTRYPOINT ["nohup", "java", "-jar", "/app.jar", "&"]
