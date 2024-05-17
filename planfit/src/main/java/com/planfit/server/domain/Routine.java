@@ -19,7 +19,7 @@ public class Routine {
 
     private boolean isLike;
 
-    @Column(name = "seq", unique = true)
+    @Column(name = "seq")
     private int sequence;
 
     @JoinColumn(name = "user_id")
@@ -32,6 +32,11 @@ public class Routine {
 
     @OneToMany(mappedBy = "routine")
     private List<Set> sets = new ArrayList<>();
+  
+      public void updateSequence(int sequence) {
+        this.sequence = sequence;
+    }
+}
 
     public void like() {
         this.isLike = true;
@@ -41,3 +46,4 @@ public class Routine {
         this.isLike = false;
     }
 }
+
