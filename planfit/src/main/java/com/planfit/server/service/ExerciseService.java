@@ -38,7 +38,7 @@ public class ExerciseService {
         User user = userRepository.findById(userId).orElseThrow();
 
         //모든 운동의 sequence를 임시값으로 초기화
-        initializeRoutineSequences(userId);
+//        initializeRoutineSequences(userId);
 
         //새로운 순서로 업데이트
         updateRoutinesWithNewOrder(exercises, user);
@@ -48,15 +48,6 @@ public class ExerciseService {
     public Exercise getExercise(Long exerciseId) {
         return exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.EXERCISE_NOT_FOUND));
-    }
-
-    private void initializeRoutineSequences(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        List<Routine> routines = user.getRoutines();
-        int tempSequence = -1000;
-        for (Routine routine : routines) {
-            routine.updateSequence(tempSequence--);
-        }
     }
 
     private void updateRoutinesWithNewOrder(List<ExerciseReorderRequest> exercises, User user) {

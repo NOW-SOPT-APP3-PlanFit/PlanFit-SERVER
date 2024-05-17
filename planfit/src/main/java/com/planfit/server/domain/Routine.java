@@ -16,7 +16,7 @@ public class Routine {
 
     private boolean isLike;
 
-    @Column(name = "seq", unique = true)
+    @Column(name = "seq")
     private int sequence;
 
     @JoinColumn(name = "user_id")
