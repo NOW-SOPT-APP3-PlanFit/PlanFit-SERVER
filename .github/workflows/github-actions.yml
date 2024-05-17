@@ -54,7 +54,7 @@ jobs:
       # gradle build
       - name: Build with Gradle
         run: |
-          cd ../../../
+          cd ../../
           pwd
           ./gradlew build -x test
 
