@@ -4,11 +4,8 @@ import com.planfit.server.common.exception.NotFoundException;
 import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
-import com.planfit.server.domain.Set;
 import com.planfit.server.domain.User;
-import com.planfit.server.repository.ExerciseRepository;
 import com.planfit.server.repository.RoutineRepository;
-import com.planfit.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +21,8 @@ public class RoutineService {
 
     @Transactional
     public Routine createRoutine(Long userId, Long exerciseId) {
-        User user = getUserById(userId);
-        Exercise exercise = getExerciseById(exerciseId);
+        User user = userService.getUserById(userId);
+        Exercise exercise = exerciseService.getExerciseById(exerciseId);
 
         checkRoutineExist(user, exercise);
 
@@ -49,29 +46,21 @@ public class RoutineService {
     }
 
     @Transactional
-    public void postExerciseLike(Long userId, Long exerciseId) {
-        User user = getUserById(userId);
-        Exercise exercise = getExerciseById(exerciseId);
+    public void patchExerciseLike(Long userId, Long exerciseId) {
+        User user = userService.getUserById(userId);
+        Exercise exercise = exerciseService.getExerciseById(exerciseId);
 
         Routine routine = getRoutineByUserAndExercise(user, exercise);
         routine.like();
     }
 
     @Transactional
-    public void deleteExerciseLike(Long userId, Long exerciseId) {
-        User user = getUserById(userId);
-        Exercise exercise = getExerciseById(exerciseId);
+    public void patchExerciseUnLike(Long userId, Long exerciseId) {
+        User user = userService.getUserById(userId);
+        Exercise exercise = exerciseService.getExerciseById(exerciseId);
 
         Routine routine = getRoutineByUserAndExercise(user, exercise);
         routine.unlike();
-    }
-
-    public User getUserById(Long userId) {
-        return userService.getUserById(userId);
-    }
-
-    public Exercise getExerciseById(Long exerciseId) {
-        return exerciseService.getExerciseById(exerciseId);
     }
 
     public Routine getRoutineByUserAndExercise(User user, Exercise exercise) {

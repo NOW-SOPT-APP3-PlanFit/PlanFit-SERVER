@@ -1,13 +1,13 @@
 package com.planfit.server.service;
 
 
-import com.planfit.server.common.exception.IndexOutBoundsException;
+import com.planfit.server.common.exception.IndexOutOfBoundsException;
 import com.planfit.server.common.message.ErrorMessage;
 import com.planfit.server.domain.Exercise;
 import com.planfit.server.domain.Routine;
 import com.planfit.server.domain.Set;
 import com.planfit.server.domain.User;
-import com.planfit.server.repository.SetRepository;
+import com.planfit.server.repository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,24 +22,25 @@ public class SetService {
     private final ExerciseService exerciseService;
     private final UserService userService;
     private final RoutineService routineService;
+    private final ExerciseRepository exerciseRepository;
 
 
     @Transactional
     public void addSet(final Long userId, final Long exerciseId) {
-        User user = findUserById(userId);
-        Exercise exercise = findExerciseById(exerciseId);
+        User user = userService.getUserById(userId);
+        Exercise exercise = exerciseService.getExerciseById(exerciseId);
 
-        Routine routine = findRoutine(user, exercise);
+        Routine routine = routineService.getRoutineByUserAndExercise(user, exercise);
 
-        Set.addSet(routine);
+        Set.setDefaultSets(routine);
     }
 
     @Transactional
     public void completeSet(final Long userId, final Long exerciseId) {
-        User user = findUserById(userId);
-        Exercise exercise = findExerciseById(exerciseId);
+        User user = userService.getUserById(userId);
+        Exercise exercise = exerciseService.getExerciseById(exerciseId);
 
-        Routine routine = findRoutine(user, exercise);
+        Routine routine = routineService.getRoutineByUserAndExercise(user, exercise);
 
         Set sets = findFirstIncompleteSet(routine.getSets());
         sets.setIsDone();
@@ -49,20 +50,7 @@ public class SetService {
         return sets.stream()
                 .filter(set -> !set.isDone())
                 .findFirst().orElseThrow(
-                        () -> new IndexOutBoundsException(ErrorMessage.SET_OVER_INDEX_REQUEST)
+                        () -> new IndexOutOfBoundsException(ErrorMessage.SET_OVER_INDEX_REQUEST)
                 );
     }
-
-    public User findUserById(Long userId) {
-        return userService.getUserById(userId);
-    }
-
-    public Exercise findExerciseById(Long exerciseId) {
-        return exerciseService.getExerciseById(exerciseId);
-    }
-
-    public Routine findRoutine(User user, Exercise exercise) {
-        return routineService.getRoutineByUserAndExercise(user, exercise);
-    }
-
 }

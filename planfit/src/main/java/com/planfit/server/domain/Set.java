@@ -31,22 +31,23 @@ public class Set {
         List<Set> sets = new ArrayList<>();
 
         IntStream.range(0, DEFAULT_SET_COUNT).forEach(i ->
-                sets.add(Set.builder()
-                        .routine(routine)
-                        .build()
-                )
+                sets.add(makeSet(routine))
         );
         return sets;
     }
 
-    public static void addSet(Routine routine) {
-        Set set = Set
+    public static void setDefaultSets(Routine routine) {
+        Set set = makeSet(routine);
+
+        routine.getSets().add(set);
+    }
+
+    private static Set makeSet(Routine routine) {
+        return Set
                 .builder()
                 .routine(routine)
                 .isDone(false)
                 .build();
-
-        routine.getSets().add(set);
     }
 
     public void setIsDone() {

@@ -1,14 +1,10 @@
 package com.planfit.server.controller;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.planfit.server.common.ApiResponseUtil;
 import com.planfit.server.common.BaseResponse;
 import com.planfit.server.common.message.SuccessMessage;
-import com.planfit.server.domain.Exercise;
 import com.planfit.server.service.RoutineService;
-import com.sun.net.httpserver.Authenticator;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,19 +28,19 @@ public class RoutineController {
     }
 
     @PatchMapping("/exercises/{exerciseId}/like")
-    public ResponseEntity<BaseResponse<?>> postExerciseLike(@RequestHeader Long userId,
-                                                            @PathVariable Long exerciseId) {
+    public ResponseEntity<BaseResponse<?>> patchExerciseLike(@RequestHeader Long userId,
+                                                             @PathVariable Long exerciseId) {
 
-        routineService.postExerciseLike(userId, exerciseId);
+        routineService.patchExerciseLike(userId, exerciseId);
 
         return ApiResponseUtil.success(SuccessMessage.EXERCISE_LIKE_POST_SUCCESS);
     }
 
     @PatchMapping("/exercises/{exerciseId}/unlike")
-    public ResponseEntity<BaseResponse<?>> deleteExerciseLike(@RequestHeader Long userId,
-                                                              @PathVariable Long exerciseId) {
+    public ResponseEntity<BaseResponse<?>> patchExerciseUnLike(@RequestHeader Long userId,
+                                                               @PathVariable Long exerciseId) {
 
-        routineService.deleteExerciseLike(userId, exerciseId);
+        routineService.patchExerciseUnLike(userId, exerciseId);
 
         return ApiResponseUtil.success(SuccessMessage.EXERCISE_DELETE_UNLIKE_SUCCESS);
     }

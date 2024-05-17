@@ -2,13 +2,10 @@ package com.planfit.server.common.handler;
 
 import com.planfit.server.common.ApiResponseUtil;
 import com.planfit.server.common.BaseResponse;
-import com.planfit.server.common.exception.IndexOutBoundsException;
+import com.planfit.server.common.exception.IndexOutOfBoundsException;
 import com.planfit.server.common.exception.NotFoundException;
 import com.planfit.server.common.exception.BadRequestException;
-import com.planfit.server.common.message.ErrorMessage;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,13 +25,13 @@ public class GlobalExceptionHandler {
         return ApiResponseUtil.failure(e.getErrorMessage());
     }
 
-    @ExceptionHandler(IndexOutBoundsException.class)
-    protected ResponseEntity<BaseResponse<?>> handleIndexOutBoundsException(final IndexOutBoundsException e) {
+    @ExceptionHandler(IndexOutOfBoundsException.class)
+    protected ResponseEntity<BaseResponse<?>> handleIndexOutBoundsException(final IndexOutOfBoundsException e) {
         return ApiResponseUtil.failure(e.getErrorMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<BaseResponse<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    protected ResponseEntity<BaseResponse<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return ApiResponseUtil.validFailure(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
     }
 }
