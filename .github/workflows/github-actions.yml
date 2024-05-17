@@ -68,7 +68,7 @@ jobs:
 
       ## deploy to production
       - name: Deploy to prod
-        uses: appleboy/ssh-action@0.1.3
+        uses: appleboy/scp-action@0.1.3
         id: deploy-prod
         if: contains(github.ref, 'main')
         with:
