@@ -28,20 +28,28 @@ public class RoutineController {
     }
 
     @PatchMapping("/exercises/{exerciseId}/like")
-    public ResponseEntity<BaseResponse<?>> patchExerciseLike(@RequestHeader Long userId,
-                                                             @PathVariable Long exerciseId) {
+    public ResponseEntity<BaseResponse<?>> patchExerciseLike(
+            @RequestHeader(name = "user_id") Long userId,
+            @PathVariable(name = "exercise_id") Long exerciseId
+    ) {
 
         routineService.patchExerciseLike(userId, exerciseId);
 
-        return ApiResponseUtil.success(SuccessMessage.EXERCISE_LIKE_POST_SUCCESS);
+        return ApiResponseUtil.success(
+                SuccessMessage.EXERCISE_LIKE_POST_SUCCESS
+        );
     }
 
     @PatchMapping("/exercises/{exerciseId}/unlike")
-    public ResponseEntity<BaseResponse<?>> patchExerciseUnLike(@RequestHeader Long userId,
-                                                               @PathVariable Long exerciseId) {
+    public ResponseEntity<BaseResponse<?>> patchExerciseUnLike(
+            @RequestHeader(name = "user_id") Long userId,
+            @PathVariable(name = "exercise_id") Long exerciseId
+    ) {
 
         routineService.patchExerciseUnLike(userId, exerciseId);
 
-        return ApiResponseUtil.success(SuccessMessage.EXERCISE_DELETE_UNLIKE_SUCCESS);
+        return ApiResponseUtil.success(
+                SuccessMessage.EXERCISE_DELETE_UNLIKE_SUCCESS
+        );
     }
 }
