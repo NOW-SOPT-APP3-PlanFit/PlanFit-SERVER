@@ -63,7 +63,7 @@ jobs:
         if: contains(github.ref, 'main')
         run: |
           pwd
-          docker build -f Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/planfit .
+          docker build -f ./planfit/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/planfit .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/planfit
 
       ## deploy to production
