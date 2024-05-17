@@ -62,6 +62,7 @@ jobs:
       - name: Docker build & push to prod
         if: contains(github.ref, 'main')
         run: |
+          pwd
           docker build -f Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/planfit .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/planfit
 
