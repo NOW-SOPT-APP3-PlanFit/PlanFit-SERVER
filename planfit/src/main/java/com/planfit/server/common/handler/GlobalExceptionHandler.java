@@ -5,6 +5,8 @@ import com.planfit.server.common.BaseResponse;
 import com.planfit.server.common.exception.IndexOutOfBoundsException;
 import com.planfit.server.common.exception.NotFoundException;
 import com.planfit.server.common.exception.BadRequestException;
+import com.planfit.server.common.exception.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -19,7 +19,7 @@ public class Routine {
 
     private boolean isLike;
 
-    @Column(name = "seq", unique = true)
+    @Column(name = "seq")
     private int sequence;
 
     @JoinColumn(name = "user_id")
@@ -42,6 +42,10 @@ public class Routine {
         routine.sets = Set.createSets(routine);
 
         return routine;
+    } 
+      public void updateSequence(int sequence) {
+        this.sequence = sequence;
+
     }
 
     public void like() {
@@ -52,3 +56,4 @@ public class Routine {
         this.isLike = false;
     }
 }
+
