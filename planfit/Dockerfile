@@ -5,7 +5,7 @@ FROM gradle:7.6.1-jdk17 AS build
 WORKDIR /app
 
 # 라이브러리 설치에 필요한 파일만 복사
-COPY build.gradle settings.gradle ./
+COPY build.gradle ./
 
 RUN gradle dependencies --no-daemon
 
