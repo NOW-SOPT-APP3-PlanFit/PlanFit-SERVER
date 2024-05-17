@@ -40,7 +40,7 @@ public class BaseResponse<T> {
                 .build();
     }
 
-        public static BaseResponse<?> of(String errorMessage) {
+    public static BaseResponse<?> of(String errorMessage) {
         return builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(errorMessage)

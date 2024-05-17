@@ -21,7 +21,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ExerciseService {
 
-    private final UserRepository userRepository;
+    private final ExerciseRepository exerciseRepository;
     private final RoutineRepository routineRepository;
     private final ExerciseRepository exerciseRepository;
     private final UserService userService;
@@ -34,6 +34,11 @@ public class ExerciseService {
         return ExerciseGetAllResponse.fromRoutines(routineRepository.findAllByUserOrderBySequenceAsc(user));
     }
 
+    public Exercise getExerciseById(Long exerciseId) {
+        return exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new NotFoundException(ErrorMessage.EXERCISE_NOT_FOUND));
+    }
+
     @Transactional
     //운동 리스트 순서 변경
     public void reorderExercises(Long userId, List<ExerciseReorderRequest> exercises) {
@@ -43,14 +48,9 @@ public class ExerciseService {
         updateRoutinesWithNewOrder(exercises, user);
     }
 
-    public Exercise getExercise(Long exerciseId) {
-        return exerciseRepository.findById(exerciseId)
-                .orElseThrow(() -> new NotFoundException(ErrorMessage.EXERCISE_NOT_FOUND));
-    }
-
     private void updateRoutinesWithNewOrder(List<ExerciseReorderRequest> exercises, User user) {
         exercises.stream().forEach(request -> {
-            Exercise exercise = getExercise(request.id());
+            Exercise exercise = getExerciseById(request.id());
             Routine routine = routineService.getRoutine(user, exercise);
             routine.updateSequence(request.index());
         });

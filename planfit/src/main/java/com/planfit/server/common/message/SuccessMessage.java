@@ -18,8 +18,16 @@ public enum SuccessMessage {
     EXERCISES_REORDER_SUCCESS(HttpStatus.OK, "운동 리스트 순서 변경에 성공했습니다."),
     EXERCISE_LIKE_POST_SUCCESS(HttpStatus.OK, "해당 운동 좋아요 등록에 성공했습니다."),
     EXERCISE_DELETE_UNLIKE_SUCCESS(HttpStatus.OK, "해당 운동 좋아요 취소에 성공했습니다"),
+
+    // routine
+    ROUTINE_CREATE_SUCCESS(HttpStatus.OK, "루틴 등록에 성공했습니다."),
+
+    //sets
+    SET_ADD_SET_SUCCESS(HttpStatus.OK, "해당 운동 세트 추가에 성공했습니다."),
+    SET_COMPLETE_SET_SUCCESS(HttpStatus.OK, "해당 운동 세트 완료에 성공했습니다.")
+
     ;
-  
+
     private final HttpStatus status;
     private final String message;
 }

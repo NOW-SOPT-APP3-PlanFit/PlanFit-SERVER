@@ -30,11 +30,22 @@ public class Routine {
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
 
-    @OneToMany(mappedBy = "routine")
+    @OneToMany(mappedBy = "routine", cascade = CascadeType.ALL)
     private List<Set> sets = new ArrayList<>();
 
+    public static Routine create(User user, Exercise exercise, int sequence) {
+        Routine routine = Routine.builder()
+                .sequence(sequence)
+                .user(user)
+                .exercise(exercise)
+                .build();
+        routine.sets = Set.createSets(routine);
+
+        return routine;
+    } 
       public void updateSequence(int sequence) {
         this.sequence = sequence;
+
     }
 
     public void like() {

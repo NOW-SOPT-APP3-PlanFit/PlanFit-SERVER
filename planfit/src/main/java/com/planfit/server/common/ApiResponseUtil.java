@@ -21,7 +21,7 @@ public interface ApiResponseUtil {
                 .body(BaseResponse.of(errorMessage));
     }
 
-        static ResponseEntity<BaseResponse<?>> validFailure(String errorMessage) {
+    static ResponseEntity<BaseResponse<?>> validFailure(String errorMessage) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(BaseResponse.of(errorMessage));
     }
