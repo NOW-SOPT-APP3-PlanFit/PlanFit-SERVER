@@ -32,11 +32,10 @@ public class Routine {
 
     @OneToMany(mappedBy = "routine")
     private List<Set> sets = new ArrayList<>();
-  
+
       public void updateSequence(int sequence) {
         this.sequence = sequence;
     }
-}
 
     public void like() {
         this.isLike = true;

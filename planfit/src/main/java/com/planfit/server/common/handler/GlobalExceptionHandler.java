@@ -26,11 +26,6 @@ public class GlobalExceptionHandler {
         return ApiResponseUtil.failure(e.getErrorMessage());
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    protected ResponseEntity<BaseResponse<?>> handleNotFoundException(final NotFoundException e) {
-        return ApiResponseUtil.failure(e.getErrorMessage());
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BaseResponse<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return ApiResponseUtil.validFailure(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
