@@ -76,7 +76,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PEM_KEY }}
           envs: GITHUB_SHA
-          port: 22
           script: |
             sudo docker ps
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/planfit
