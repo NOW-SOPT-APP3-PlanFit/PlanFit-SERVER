@@ -18,7 +18,7 @@ public class RoutineController {
     @PostMapping("/routine")
     public ResponseEntity<BaseResponse<?>> postRoutine(
             @RequestHeader(name = "user_id") Long userId,
-            @RequestParam(name = "exercise_id") Long exerciseId
+            @RequestParam(name = "exerciseId") Long exerciseId
     ) {
         routineService.createRoutine(userId, exerciseId);
 
@@ -30,7 +30,7 @@ public class RoutineController {
     @PatchMapping("/exercises/{exerciseId}/like")
     public ResponseEntity<BaseResponse<?>> patchExerciseLike(
             @RequestHeader(name = "user_id") Long userId,
-            @PathVariable(name = "exercise_id") Long exerciseId
+            @PathVariable(name = "exerciseId") Long exerciseId
     ) {
 
         routineService.patchExerciseLike(userId, exerciseId);
@@ -43,7 +43,7 @@ public class RoutineController {
     @PatchMapping("/exercises/{exerciseId}/unlike")
     public ResponseEntity<BaseResponse<?>> patchExerciseUnLike(
             @RequestHeader(name = "user_id") Long userId,
-            @PathVariable(name = "exercise_id") Long exerciseId
+            @PathVariable(name = "exerciseId") Long exerciseId
     ) {
 
         routineService.patchExerciseUnLike(userId, exerciseId);

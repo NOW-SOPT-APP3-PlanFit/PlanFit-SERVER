@@ -27,7 +27,7 @@ public class SetController {
     @PostMapping("/exercises/{exerciseId}/set")
     public ResponseEntity<BaseResponse<?>> postAddSet(
             @RequestHeader(name = "user_id") final Long userId,
-            @PathVariable(name = "exercise_id") final Long exerciseId
+            @PathVariable(name = "exerciseId") final Long exerciseId
     ) {
         setService.addSet(userId, exerciseId);
 
@@ -40,7 +40,7 @@ public class SetController {
     @PutMapping("/exercises/{exerciseId}/set")
     public ResponseEntity<BaseResponse<?>> putSetIsDone(
             @RequestHeader(name = "user_id") final Long userId,
-            @PathVariable(name = "exercise_id") final Long exerciseId
+            @PathVariable(name = "exerciseId") final Long exerciseId
     ) {
         setService.completeSet(userId, exerciseId);
 
