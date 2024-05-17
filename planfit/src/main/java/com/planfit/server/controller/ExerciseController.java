@@ -19,17 +19,26 @@ public class ExerciseController {
 
     //운동 리스트 조회
     @GetMapping("/exercises")
-    public ResponseEntity<BaseResponse<?>> exercisesList(@RequestHeader Long userId) {
-
-        return ApiResponseUtil.success(SuccessMessage.EXERCISES_FIND_SUCCESS, routineService.findRoutines(userId));
+    public ResponseEntity<BaseResponse<?>> exercisesList(
+            @RequestHeader("user_id") Long userId
+    ) {
+        return ApiResponseUtil.success(
+                SuccessMessage.EXERCISES_FIND_SUCCESS,
+                routineService.findRoutines(userId)
+        );
     }
 
     //운동 리스트 순서 변경
     @PutMapping("/exercises")
-    public ResponseEntity<BaseResponse<?>> exercisesReorder(@RequestHeader Long userId,
-                                                            @Valid @RequestBody ExerciseReorderAllRequest exercises) {
+    public ResponseEntity<BaseResponse<?>> exercisesReorder(
+            @RequestHeader("user_id") Long userId,
+            @Valid @RequestBody ExerciseReorderAllRequest exercises
+    ) {
         routineService.reorderExercises(userId, exercises.exercises());
-        return ApiResponseUtil.success(SuccessMessage.EXERCISES_REORDER_SUCCESS);
+
+        return ApiResponseUtil.success(
+                SuccessMessage.EXERCISES_REORDER_SUCCESS
+        );
     }
 
 }
