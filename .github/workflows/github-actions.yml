@@ -4,8 +4,9 @@ name: CI/CD using github actions & docker
 # event trigger
 # main이나 develop 브랜치에 push가 되었을 때 실행
 on:
-  push:
-    branches: [ "main" ]
+  pull_request:
+    branches: 
+      [ "main" ]
 
 permissions:
   contents: read
