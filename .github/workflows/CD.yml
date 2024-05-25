@@ -44,7 +44,7 @@ jobs:
       run: chmod +x ./planfit/gradlew
       
     - name: Build with Gradle # 실제 application build(-x 옵션을 통해 test는 제외)
-      run: ./planfit/gradlew build -x test
+      run: ./planfit/gradlew build --project-dir ./planfit -x test
       
     - name: Make Directory
       run: mkdir -p deploy
