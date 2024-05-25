@@ -30,8 +30,8 @@ jobs:
     - name: make application.yml
       run: |
         ## create application.yml
-        mkdir ./src/main/resources
-        cd ./src/main/resources
+        mkdir ./planfit/src/main/resources
+        cd ./planfit/src/main/resources
 
         touch ./application.yml
 
