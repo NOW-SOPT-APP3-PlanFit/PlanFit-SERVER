@@ -1,26 +1,23 @@
 #!/bin/bash
-
 BUILD_PATH=$(ls /home/ubuntu/app/planfit-0.0.1-SNAPSHOT.jar)
 JAR_NAME=$(basename $BUILD_PATH)
 echo "> build 파일명: $JAR_NAME"
 
 echo "> build 파일 복사"
 DEPLOY_PATH=/home/ubuntu/app/
-if [ "$BUILD_PATH" != "$DEPLOY_PATH$JAR_NAME" ]; then
-    cp $BUILD_PATH $DEPLOY_PATH
-else
-    echo "> 파일이 이미 동일한 위치에 있습니다. 복사를 건너뜁니다."
-fi
+cp $BUILD_PATH $DEPLOY_PATH
 
 echo "> 현재 구동중인 Port 확인"
 BLUE_PROFILE=$(curl -s http://localhost/profile)
 echo "> $BLUE_PROFILE"
 
 # 쉬고 있는 set 찾기: set1이 사용중이면 set2가 쉬고 있고, 반대면 set1이 쉬고 있음
-if [ "$BLUE_PROFILE" = "set1" ]; then
+if [ $BLUE_PROFILE == set1 ]
+then
   GREEN_PROFILE=set2
   GREEN_PORT=8082
-elif [ "$BLUE_PROFILE" = "set2" ]; then
+elif [ $BLUE_PROFILE == set2 ]
+then
   GREEN_PROFILE=set1
   GREEN_PORT=8081
 else
@@ -55,15 +52,18 @@ do
   response=$(curl -s http://localhost:$GREEN_PORT/actuator/health)
   up_count=$(echo $response | grep 'UP' | wc -l)
   
-  if [ $up_count -ge 1 ]; then
+  if [ $up_count -ge 1 ]
+  then
       echo "> Health check 성공"
+      
       break
   else
       echo "> Health check의 응답을 알 수 없거나 혹은 status가 UP이 아닙니다."
       echo "> Health check: ${response}"
   fi
 
-  if [ $retry_count -eq 10 ]; then
+  if [ $retry_count -eq 10 ]
+  then
     echo "> Health check 실패. "
     echo "> Nginx에 연결하지 않고 배포를 종료합니다."
     exit 1
@@ -76,7 +76,8 @@ done
 echo "> $BLUE_PROFILE 에서 구동중인 애플리케이션 pid 확인"
 BLUE_PID=$(pgrep -f $BLUE_PROFILE-planfit.jar)
 
-if [ -z "$BLUE_PID" ]; then
+if [ -z $BLUE_PID ]
+then
   echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
 else
   echo "> 기존 ${BLUE_PROFILE} 서버 중단"
