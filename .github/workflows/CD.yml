@@ -41,25 +41,25 @@ jobs:
       shell: bash
         
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x ./planfit/gradlew
       
     - name: Build with Gradle # 실제 application build(-x 옵션을 통해 test는 제외)
-      run: ./gradlew build -x test
+      run: ./planfit/gradlew build -x test
       
     - name: Make Directory
       run: mkdir -p deploy
       
     - name: Copy Jar
-      run: cp ./build/libs/*.jar ./deploy
+      run: cp ./planfit/build/libs/*.jar ./deploy
     
     - name: Copy appspec.yml
-      run: cp appspec.yml ./deploy
+      run: cp ./planfit/appspec.yml ./deploy
 
     - name: Copy script
-      run: cp ./scripts/*.sh ./deploy
+      run: cp ./planfit/scripts/*.sh ./deploy
       
     - name: Make zip file
-      run: zip -r ./now-sopt.zip ./deploy
+      run: zip -r ./planfit/now-sopt.zip ./deploy
       shell: bash
       
     - name: Configure AWS credentials
