@@ -6,7 +6,11 @@ echo "> build 파일명: $JAR_NAME"
 
 echo "> build 파일 복사"
 DEPLOY_PATH=/home/ubuntu/app/
-cp $BUILD_PATH $DEPLOY_PATH
+if [ "$BUILD_PATH" != "$DEPLOY_PATH$JAR_NAME" ]; then
+    cp $BUILD_PATH $DEPLOY_PATH
+else
+    echo "> 파일이 이미 동일한 위치에 있습니다. 복사를 건너뜁니다."
+fi
 
 echo "> 현재 구동중인 Port 확인"
 BLUE_PROFILE=$(curl -s http://localhost/profile)
